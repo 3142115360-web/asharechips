@@ -1,0 +1,160 @@
+---
+title: "Daily Holding-Cost Models with asharechips"
+author: "ZHAORUIHONG"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Daily Holding-Cost Models with asharechips}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 6, fig.height = 4)
+library(asharechips)
+```
+
+## What a cost distribution describes
+
+A distribution assigns a share of circulating stock to each modelled holding
+cost. Average cost is weighted by shares, rather than by the number of distinct
+price levels:
+
+```{r mean}
+chip_mean_cost(c(10, 11, 12), c(50, 20, 30))
+```
+
+Actual holders' acquisition costs are not available in ordinary daily market
+data. This package instead specifies the assumptions used to carry old weights
+forward and allocate new weights.
+
+## A small analytical example
+
+The following data are entirely synthetic, not a real stock history. Each day
+has a single transaction price. Dates are deliberately out of order.
+
+```{r input}
+daily <- data.frame(
+  trade_date = c("20260106", "20260102", "20260105"),
+  high = c(12, 10, 11), low = c(12, 10, 11), close = c(12, 10, 11),
+  vol = c(100, 100, 100), amount = c(120, 100, 110),
+  turnover_rate = c(30, 0, 20)
+)
+chips <- estimate_chip_distribution(daily)
+as.data.frame(chips)
+summary(chips)
+```
+
+Tushare reports volume in lots of 100 shares and amount in thousand CNY, so VWAP
+is `amount * 10 / vol`. See the [daily-data documentation](https://tushare.pro/document/2?doc_id=27)
+and [turnover definitions](https://tushare.pro/document/2?doc_id=32).
+
+The first row initializes the distribution at 10 CNY. After turnover of 20 and
+30 percentage points on the next two days, the analytical weights are:
+
+```{r analytical}
+expected <- c(
+  "10 CNY" = exp(-0.5),
+  "11 CNY" = (1 - exp(-0.2)) * exp(-0.3),
+  "12 CNY" = 1 - exp(-0.3)
+)
+expected
+stopifnot(isTRUE(all.equal(unname(expected), chips$distribution$weight)))
+```
+
+At a final close of 12, the 12-CNY weight is break-even; it is not counted as
+profitable. The three profit/break-even/loss ratios sum to one.
+
+```{r plot}
+plot(chips, main = "Synthetic daily cost distribution")
+```
+
+## Model choices and initialization sensitivity
+
+The exponential rule retains `exp(-turnover_rate / 100)` of old weight each day.
+It represents homogeneous random replacement. Linear replacement uses turnover
+directly, is easier to interpret as a single transfer, and requires rates at
+most 100 percentage points. They agree approximately for very small turnover.
+
+```{r linear}
+linear <- estimate_chip_distribution(daily, turnover_transform = "linear")
+as.data.frame(linear)
+```
+
+The default initialization is a strong assumption. A short interval with little
+turnover can retain most of the first day's assigned weight. The diagnostics
+distinguish proposed turnover from the replacement actually applied to that
+initialized first row:
+
+```{r diagnostics}
+chips$diagnostics[c("trade_date", "replacement_fraction",
+                    "applied_replacement_fraction", "initialized_here")]
+chips$summary[c("initialization_weight", "history_coverage")]
+```
+
+If a distribution immediately before the first date is available, supply it in
+the final observation's price basis. Every row then applies turnover:
+
+```{r initial}
+initial <- data.frame(price = c(8, 12), weight = c(0.5, 0.5))
+with_initial <- estimate_chip_distribution(daily, initial_distribution = initial)
+summary(with_initial)
+```
+
+## Price allocation and resolution
+
+The VWAP method places new weight at a single daily average price. Typical-price
+and close methods offer alternatives when volume and amount are unavailable.
+The uniform rule allocates weight by overlaps of grid cells with the daily
+low-high range. Daily data do not prove that trades were uniformly distributed.
+
+```{r uniform}
+range_data <- data.frame(
+  trade_date = "20260102", high = 12, low = 10, close = 11, turnover_rate = 0
+)
+uniform <- estimate_chip_distribution(range_data, price_method = "uniform", price_step = 0.25)
+plot(uniform, main = "Uniform allocation is a modelling assumption")
+```
+
+Smaller `price_step` reduces rounding error but increases computation. Cost peaks
+and threshold-based profit shares can change with resolution. The nominal central
+90-percent interval consists of discrete 5th and 95th weighted quantiles; tied
+mass at endpoints can make its contained weight exceed 90 percent.
+
+## Joining already downloaded Tushare tables
+
+The package never downloads data or saves credentials. The following joined
+tables are also synthetic:
+
+```{r prepare}
+raw_daily <- daily[setdiff(names(daily), "turnover_rate")]
+raw_daily$ts_code <- "000001.SZ"
+basic <- data.frame(ts_code = "000001.SZ", trade_date = daily$trade_date,
+                    turnover_rate = daily$turnover_rate)
+factors <- data.frame(ts_code = "000001.SZ", trade_date = daily$trade_date,
+                      adj_factor = 1)
+input <- prepare_tushare_data(raw_daily, basic, factors, ts_code = "000001.SZ")
+estimate_chip_distribution(input, adjustment_col = "adj_factor")
+```
+
+Duplicate keys or absent matches are errors. A cutoff can be supplied through
+`as_of`, including weekends; the last retained daily observation determines the
+factor anchor. When factors are supplied, historical prices are multiplied by
+`factor_day / factor_last`. Supply unadjusted daily prices to avoid adjusting
+twice. Dividend adjustment creates a comparable price basis rather than literal
+historical cash acquisition costs.
+
+## Interpreting limitations
+
+The model cannot identify which cost layers were sold, intraday trade-price
+patterns, locked holdings, investor identities, or the costs of new shares.
+Issuance, unlocks and repurchases are not modelled. If a `float_share` column is
+present, consecutive changes are flagged and produce a warning. Fees and taxes
+are excluded. Estimates and sensitivity comparisons describe model behaviour;
+they do not predict future returns.
+
+For field definitions and validation rules, see `?estimate_chip_distribution`.
+Chinese guidance is available at:
+
+```{r chinese-path}
+system.file("README.zh-CN.md", package = "asharechips")
+```

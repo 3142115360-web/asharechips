@@ -1,0 +1,7 @@
+export(estimate_chip_distribution)
+export(prepare_tushare_data)
+export(chip_mean_cost)
+S3method(plot,chip_distribution)
+S3method(print,chip_distribution)
+S3method(summary,chip_distribution)
+S3method(as.data.frame,chip_distribution)

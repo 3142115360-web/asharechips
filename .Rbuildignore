@@ -1,0 +1,7 @@
+^\.github$
+^cran-comments\.md$
+^cran-status\.md$
+^.*\.Rcheck$
+^.*\.tar\.gz$
+^\.gitignore$
+^LICENSE\.md$

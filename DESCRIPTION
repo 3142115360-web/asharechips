@@ -1,0 +1,26 @@
+Package: asharechips
+Title: Estimate Holding Cost Distributions for Chinese Equities
+Version: 0.2.0
+Authors@R:
+    person(given = "ZHAORUIHONG", email = "3142115360@qq.com",
+           role = c("aut", "cre"))
+Description: Estimates holding-cost distributions of mainland Chinese
+    A-share equities from daily price, volume, amount and turnover data.
+    Provides offline preparation of 'Tushare' tables, exponential or linear
+    turnover replacement, optional adjustment factors and initial cost
+    distributions, weighted cost summaries and diagnostic records. The
+    explicitly documented models support reproducible research into cost
+    concentration and sensitivity to modelling assumptions.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends:
+    R (>= 4.1.0)
+Imports:
+    graphics
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Language: en-US

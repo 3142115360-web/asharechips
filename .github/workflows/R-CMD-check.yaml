@@ -26,6 +26,10 @@ jobs:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
       - uses: r-lib/actions/setup-tinytex@v2
+      - name: Install LaTeX fonts for the PDF manual
+        run: |
+          tlmgr update --self
+          tlmgr install courier
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |

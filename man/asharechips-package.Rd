@@ -14,5 +14,5 @@ weights, statistics and diagnostics. A weighted-mean cost utility is also
 provided. Examples and the vignette use synthetic data and require no token.
 See the introduction vignette for a worked example and limitations.
 }
-\author{ZHAORUIHONG \email{3142115360@qq.com}}
+\author{Ruihong Zhao \email{3142115360@qq.com}}
 \seealso{\code{\link{estimate_chip_distribution}}}

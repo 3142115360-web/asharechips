@@ -1,11 +1,17 @@
 ## Submission
 
-This is the first CRAN submission of asharechips, version 0.2.0.
+This is a resubmission of asharechips, version 0.2.0.
 The package estimates holding-cost distributions for Chinese equities using
 explicit turnover-replacement and price-allocation assumptions. It prepares
 locally supplied Tushare tables and returns reproducible cost summaries and
 per-day diagnostics. All examples, tests and the vignette use synthetic data.
 The package performs no network requests and requires no API credentials.
+
+## Resubmission changes
+
+Following the CRAN reviewer's request, the maintainer's name is now represented
+with separate given and family names as `Ruihong Zhao` throughout the package.
+The maintainer does not currently supply an ORCID.
 
 ## Executed test environments
 
@@ -26,7 +32,7 @@ All three complete checks: 0 errors | 0 warnings | 1 note
 
 The only note is the expected CRAN incoming message:
 
-    Maintainer: 'ZHAORUIHONG <3142115360@qq.com>'
+    Maintainer: 'Ruihong Zhao <3142115360@qq.com>'
     New submission
 
 There are no reverse dependencies because this is a new package.

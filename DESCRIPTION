@@ -2,7 +2,7 @@ Package: asharechips
 Title: Estimate Holding Cost Distributions for Chinese Equities
 Version: 0.2.0
 Authors@R:
-    person(given = "ZHAORUIHONG", email = "3142115360@qq.com",
+    person(given = "Ruihong", family = "Zhao", email = "3142115360@qq.com",
            role = c("aut", "cre"))
 Description: Estimates holding-cost distributions of mainland Chinese
     A-share equities from daily price, volume, amount and turnover data.

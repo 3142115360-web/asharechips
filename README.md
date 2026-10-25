@@ -139,6 +139,6 @@ package has not yet been accepted by CRAN.
 
 ## License
 
-MIT, copyright ZHAORUIHONG. See [LICENSE.md](LICENSE.md) for the full text.
+MIT, copyright Ruihong Zhao. See [LICENSE.md](LICENSE.md) for the full text.
 The R package license metadata is in `LICENSE`, with the full license also
 installed as `inst/LICENSE.txt`.

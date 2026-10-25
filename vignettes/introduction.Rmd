@@ -1,6 +1,6 @@
 ---
 title: "Daily Holding-Cost Models with asharechips"
-author: "ZHAORUIHONG"
+author: "Ruihong Zhao"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Daily Holding-Cost Models with asharechips}

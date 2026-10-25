@@ -30,6 +30,8 @@ jobs:
         run: |
           tlmgr update --self
           tlmgr install courier
+          kpsewhich pcrr8t.tfm
+          kpsewhich pcrr8c.tfm
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |

@@ -1,16 +1,17 @@
 Package: asharechips
 Title: Estimate Holding Cost Distributions for Chinese Equities
-Version: 0.2.0
+Version: 0.2.1
 Authors@R:
     person(given = "Ruihong", family = "Zhao", email = "3142115360@qq.com",
            role = c("aut", "cre"))
 Description: Estimates holding-cost distributions of mainland Chinese
     A-share equities from daily price, volume, amount and turnover data.
-    Provides offline preparation of 'Tushare' tables, exponential or linear
-    turnover replacement, optional adjustment factors and initial cost
-    distributions, weighted cost summaries and diagnostic records. The
-    explicitly documented models support reproducible research into cost
-    concentration and sensitivity to modelling assumptions.
+    Implements the linear turnover-based cost-distribution recurrence of Liu
+    and Wang (2018) <doi:10.1016/j.physa.2017.11.154>, and adds a package-specific
+    exponential-retention alternative and price-allocation choices. Provides
+    optional adjustment factors and initial distributions, offline preparation
+    of 'Tushare' tables, weighted cost summaries and diagnostics for
+    reproducible sensitivity analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends:

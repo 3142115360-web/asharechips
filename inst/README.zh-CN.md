@@ -7,7 +7,7 @@
 先在 RStudio 安装本地源码包，然后加载：
 
 ```r
-install.packages("asharechips_0.2.0.tar.gz", repos = NULL, type = "source")
+install.packages("asharechips_0.2.1.tar.gz", repos = NULL, type = "source")
 library(asharechips)
 chip_mean_cost(c(10, 11, 12), c(50, 20, 30))
 ```

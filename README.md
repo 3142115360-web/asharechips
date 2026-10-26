@@ -24,7 +24,7 @@ library(asharechips)
 Alternatively, install a locally built source archive:
 
 ```r
-install.packages("asharechips_0.2.0.tar.gz", repos = NULL, type = "source")
+install.packages("asharechips_0.2.1.tar.gz", repos = NULL, type = "source")
 library(asharechips)
 ```
 
@@ -121,20 +121,14 @@ generated from roxygen comments. To reproduce checks:
 
 ```text
 R CMD build asharechips
-R CMD check --as-cran asharechips_0.2.0.tar.gz
+R CMD check --as-cran asharechips_0.2.1.tar.gz
 ```
 
 The repository includes a Windows, macOS, Linux and R-devel check workflow.
 Results appear under the repository's Actions tab after each push.
 
-Before publication, complete checks on macOS arm64 with R 4.6.1 and official
-Win-builder checks with Windows R-release 4.6.1 and R-devel (2026-10-13 r90668)
-each returned zero errors, zero warnings and one NOTE: `New submission`.
-These results describe the checked 0.2.0 source archive; the workflow's presence
-alone does not mean that GitHub Actions checks have passed.
-
-Version 0.2.0 was resubmitted through the CRAN upload form on 2026-10-25 and
-is awaiting manual review. The package has not yet been accepted by CRAN.
+The workflow's presence alone does not mean that every check has passed; inspect
+the individual jobs and their logs before relying on a release candidate.
 
 ## License
 

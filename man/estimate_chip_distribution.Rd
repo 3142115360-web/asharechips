@@ -143,6 +143,10 @@ The estimates depend on modelling assumptions, observed history and grid
 spacing. They do not establish investor identity or future returns.
 }
 \references{
+Liu, H. and Wang, L. (2018). ``The price momentum of stock in
+distribution.'' \emph{Physica A: Statistical Mechanics and its Applications},
+492, 2336--2344. \doi{10.1016/j.physa.2017.11.154}.
+
 Tushare daily prices and units:
 \url{https://tushare.pro/document/2?doc_id=27}.
 Turnover definitions: \url{https://tushare.pro/document/2?doc_id=32}.

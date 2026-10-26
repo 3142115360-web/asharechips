@@ -1,3 +1,10 @@
+# asharechips 0.2.1
+
+* Fix the README license link so that its target is present in the built source
+  package.
+* Cite the published turnover-based cost-distribution recurrence and distinguish
+  it from the package-specific retention and price-allocation choices.
+
 # asharechips 0.2.0
 
 * Validate calendar dates, column mappings, numeric input, stock selection,

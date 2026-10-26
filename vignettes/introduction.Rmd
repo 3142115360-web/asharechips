@@ -75,6 +75,11 @@ It represents homogeneous random replacement. Linear replacement uses turnover
 directly, is easier to interpret as a single transfer, and requires rates at
 most 100 percentage points. They agree approximately for very small turnover.
 
+The linear update builds on the turnover-based cost-distribution recurrence of
+[Liu and Wang (2018)](https://doi.org/10.1016/j.physa.2017.11.154). The
+exponential retention transform and each daily price-allocation rule are
+explicit package-specific modelling choices.
+
 ```{r linear}
 linear <- estimate_chip_distribution(daily, turnover_transform = "linear")
 as.data.frame(linear)

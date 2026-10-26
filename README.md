@@ -133,12 +133,11 @@ each returned zero errors, zero warnings and one NOTE: `New submission`.
 These results describe the checked 0.2.0 source archive; the workflow's presence
 alone does not mean that GitHub Actions checks have passed.
 
-Version 0.2.0 was submitted through the CRAN upload form on 2026-10-15.
-At the time of this update, maintainer email confirmation is pending. The
-package has not yet been accepted by CRAN.
+Version 0.2.0 was resubmitted through the CRAN upload form on 2026-10-25 and
+is awaiting manual review. The package has not yet been accepted by CRAN.
 
 ## License
 
-MIT, copyright Ruihong Zhao. See [LICENSE.md](LICENSE.md) for the full text.
-The R package license metadata is in `LICENSE`, with the full license also
-installed as `inst/LICENSE.txt`.
+MIT, copyright Ruihong Zhao. See [inst/LICENSE.txt](inst/LICENSE.txt) for the full text.
+The R package license metadata is in `LICENSE`; the full license is also
+installed as `LICENSE.txt`.
